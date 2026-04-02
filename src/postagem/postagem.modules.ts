@@ -7,7 +7,7 @@ import { PostagemController } from "./controller/postagem.controller";
 @Module({
     imports: [TypeOrmModule.forFeature([Postagem])],  // Importa a postagem como uma entidade TypeORM
     providers: [PostagemService], // Define o PostagemService como um provedor 
-    controllers: [PostagemController],
+    controllers: [PostagemController], // Define o PostagemController como um controlador 
     exports: [TypeOrmModule] // Exporta o TypeOrmModule
 })
 export class PostagemModule {}
