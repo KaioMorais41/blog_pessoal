@@ -1,13 +1,10 @@
+import { Tema } from './../../tema/entities/tema.entity';
 import { IsNotEmpty } from 'class-validator';
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 @Entity({ name: 'tb_postagem' }) // Cria a tabela no banco de dados chamada tb_postagem
 export class Postagem {
+
   @PrimaryGeneratedColumn() // Cria uma chave primaria e auto increment
   id!: number;
 
@@ -16,9 +13,16 @@ export class Postagem {
   titulo!: string;
 
   @IsNotEmpty()
-  @Column()
+  @Column({ length: 1000, nullable: false })
   texto!: string;
 
   @UpdateDateColumn() // Cria uma coluna chamada data atualização da postagem
   data!: Date;
+
+  // Varias postagem para um tema
+  @ManyToOne(() => Tema, (tema) => tema.postagem,{
+    onDelete: "CASCADE"
+  })
+  tema!: Tema;
+  
 }
