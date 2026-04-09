@@ -1,6 +1,8 @@
-import { Tema } from './../../tema/entities/tema.entity';
-import { IsNotEmpty } from 'class-validator';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
+import { Tema } from './../../tema/entities/tema.entity'
+import { IsNotEmpty } from 'class-validator'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
+import { Usuario } from '../../usuario/entities/usuario.entity';
+
 
 @Entity({ name: 'tb_postagem' }) // Cria a tabela no banco de dados chamada tb_postagem
 export class Postagem {
@@ -24,5 +26,12 @@ export class Postagem {
     onDelete: "CASCADE"
   })
   tema!: Tema;
+
+   
+  @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
+    onDelete: "CASCADE"
+  })
+  usuario!: Usuario;
+ 
   
 }
