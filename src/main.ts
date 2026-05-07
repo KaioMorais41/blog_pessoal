@@ -4,25 +4,26 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule); // Configuração da aplicação nest, cria a aplicação
 
   const config = new DocumentBuilder()
-  .setTitle('Blog Pessoal')
-  .setDescription('Projeto Blog Pessoal')
-  .setContact("Generation Brasil","http://www.generationbrasil.online","generation@email.com")
-  .setVersion('1.0')
-  .addBearerAuth()
-  .build();
+    .setTitle('Blog Pessoal')
+    .setDescription('Projeto Blog Pessoal')
+    .setContact("Kaio Morais", "https://github.com/KaioMorais41", "kaiomorais2903@gmail.com")
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/swagger', app, document);
 
-  process.env.TZ = '-03:00';
+  process.env.TZ = '-03:00'; // Configuração TimeZone
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe()); //Configuração da validação de dados de entrada
+  app.enableCors(); // Configuração de cors para permitir requisições de outras origens
 
-  await app.listen(process.env.PORT ?? 4000);
-
+  await app.listen(process.env.PORT ?? 4000); // Execução da aplicação nest, configuração da porta
 }
+bootstrap().catch((error) => {
 
-bootstrap();
+  console.error('Erro ao iniciar aplicação:', error);
+});
