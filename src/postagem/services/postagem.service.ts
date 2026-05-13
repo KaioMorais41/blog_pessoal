@@ -23,7 +23,8 @@ export class PostagemService {
     async findAll(): Promise<Postagem[]>{ // Promise é uma função assíncrona
        return await this.postagemRepository.find({
             relations: {
-                tema:  true
+                tema:  true,
+                usuario: true
             }
        }); // select * from tb_postagem;
        
@@ -36,7 +37,8 @@ export class PostagemService {
             id
             }, 
             relations: {
-                tema:  true
+                tema:  true,
+                usuario: true
             }
         });
  
@@ -51,7 +53,8 @@ export class PostagemService {
                 titulo: ILike(`%${titulo}%`)
             },
             relations: {
-                tema: true
+                tema: true,
+                usuario: true
             }
         })
     }
